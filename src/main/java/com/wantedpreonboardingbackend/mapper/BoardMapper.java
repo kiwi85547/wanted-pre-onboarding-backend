@@ -1,10 +1,7 @@
 package com.wantedpreonboardingbackend.mapper;
 
 import com.wantedpreonboardingbackend.domain.RecruitNotice;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -57,4 +54,8 @@ public interface BoardMapper {
             """)
     int updateRecruitById(RecruitNotice recruitNotice);
 
+    @Delete("""
+            DELETE FROM recruit_notice WHERE recruit_id = #{recruitId}
+            """)
+    int deleteRecruitById(Integer recruitId);
 }

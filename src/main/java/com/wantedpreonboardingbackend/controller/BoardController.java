@@ -46,4 +46,13 @@ public class BoardController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteRecruit(@PathVariable Integer id) {
+        if (id != null) {
+            boardService.deleteRecruit(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }

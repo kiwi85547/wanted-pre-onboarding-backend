@@ -67,4 +67,8 @@ public class BoardService {
         result.put("recruit", boardMapper.updateRecruitById(recruitNotice));
         return result;
     }
+
+    public void deleteRecruit(Integer id) {
+        boardMapper.deleteRecruitById(id);
+    }
 }
