@@ -52,7 +52,7 @@ public class BoardService {
 
     public Map<String, Object> getBoard(Integer id) {
         Map<String, Object> result = new HashMap<>();
-        if (id != null) {
+        if (id == null) {
             return null;
         }
         result.put("recruit", boardMapper.selectRecruitById(id));
@@ -68,7 +68,8 @@ public class BoardService {
         return result;
     }
 
-    public void deleteRecruit(Integer id) {
-        boardMapper.deleteRecruitById(id);
+    public boolean deleteRecruit(Integer id) {
+        int deleteRows = boardMapper.deleteRecruitById(id);
+        return deleteRows > 0;
     }
 }

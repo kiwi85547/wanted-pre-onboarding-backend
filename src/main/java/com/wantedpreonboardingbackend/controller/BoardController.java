@@ -16,7 +16,7 @@ public class BoardController {
     final BoardService boardService;
 
     @PostMapping("")
-    public ResponseEntity<Object> addRecruit(RecruitNotice recruitNotice) {
+    public ResponseEntity<Object> addRecruit(@RequestBody RecruitNotice recruitNotice) {
         if (boardService.validate(recruitNotice)) {
             boardService.addRecruit(recruitNotice);
             return ResponseEntity.ok().build();
@@ -38,10 +38,13 @@ public class BoardController {
         return ResponseEntity.ok().body(map);
     }
 
-    @PostMapping("{id}")
-    public ResponseEntity modifyRecruit(@PathVariable Integer id, RecruitNotice recruitNotice) {
+    @PutMapping("{id}")
+    public ResponseEntity modifyRecruit(@PathVariable Integer id, @RequestBody RecruitNotice recruitNotice) {
         if (boardService.validate(recruitNotice)) {
             Map<String, Object> result = boardService.modifyRecruit(id, recruitNotice);
+            if (result == null) {
+                return ResponseEntity.notFound().build();
+            }
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.badRequest().build();
@@ -49,10 +52,9 @@ public class BoardController {
 
     @DeleteMapping("{id}")
     public ResponseEntity deleteRecruit(@PathVariable Integer id) {
-        if (id != null) {
-            boardService.deleteRecruit(id);
-            return ResponseEntity.ok().build();
+        if (id == null || !boardService.deleteRecruit(id)) {
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok().build();
     }
 }

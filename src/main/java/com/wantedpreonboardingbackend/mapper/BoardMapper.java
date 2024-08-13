@@ -48,8 +48,7 @@ public interface BoardMapper {
                 content = #{content}, 
                 tech_stack = #{techStack}, 
                 country = #{country}, 
-                region = #{region}, 
-                created_at = NOW()
+                region = #{region}
             WHERE recruit_id = #{recruitId}
             """)
     int updateRecruitById(RecruitNotice recruitNotice);
