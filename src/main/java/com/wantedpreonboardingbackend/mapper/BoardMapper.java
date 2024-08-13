@@ -16,8 +16,7 @@ public interface BoardMapper {
                 content, 
                 tech_stack, 
                 country, 
-                region, 
-                created_at
+                region
             ) VALUES (
                 #{companyId}, 
                 #{position}, 
@@ -25,8 +24,7 @@ public interface BoardMapper {
                 #{content}, 
                 #{techStack}, 
                 #{country}, 
-                #{region}, 
-                #{createdAt}
+                #{region}
             )
             """)
     int insertRecruit(RecruitNotice recruitNotice);
