@@ -26,3 +26,15 @@ CREATE TABLE job_seeker
     recruit_id    INT NULL UNIQUE,
     FOREIGN KEY (recruit_id) REFERENCES recruit_notice (recruit_id)
 );
+
+INSERT INTO company(company_id, company_name)
+VALUES (1, '원티드랩');
+
+INSERT INTO company(company_id, company_name)
+VALUES (4, '카카오');
+
+SELECT *
+FROM company;
+
+SELECT *
+FROM job_seeker;
