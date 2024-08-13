@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
@@ -20,7 +23,7 @@ public class BoardService {
                 recruitNotice.getContent(),
                 recruitNotice.getTechStack(),
                 recruitNotice.getCountry(),
-                recruitNotice.getRegion()
+                recruitNotice.getRegion(),
         };
 
         // null이거나 blank인지 체크
@@ -34,6 +37,9 @@ public class BoardService {
         if (recruitNotice.getSalary() == null) {
             return false;
         }
+        if (recruitNotice.getCompanyId() == null) {
+            return false;
+        }
 
         return true;
     }
@@ -42,4 +48,7 @@ public class BoardService {
         boardMapper.insertRecruit(recruitNotice);
     }
 
+    public List<Map<String, Object>> getList() {
+        return boardMapper.selectList();
+    }
 }
