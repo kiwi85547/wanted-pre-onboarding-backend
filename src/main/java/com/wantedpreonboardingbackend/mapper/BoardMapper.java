@@ -37,4 +37,9 @@ public interface BoardMapper {
             SELECT *, company.company_name FROM recruit_notice notice LEFT JOIN company ON notice.company_id = company.company_id
             """)
     List<Map<String, Object>> selectList();
+
+    @Select("""
+            SELECT *, company.company_name FROM recruit_notice notice LEFT JOIN company ON notice.company_id = company.company_id WHERE notice.recruit_id = #{recruitId}
+            """)
+    Map<String, Object> selectRecruitById(Integer recruitId);
 }

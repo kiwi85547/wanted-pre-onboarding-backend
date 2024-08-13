@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,5 +51,14 @@ public class BoardService {
 
     public List<Map<String, Object>> getList() {
         return boardMapper.selectList();
+    }
+
+    public Map<String, Object> getBoard(Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        if (id != null) {
+            return null;
+        }
+        result.put("recruit", boardMapper.selectRecruitById(id));
+        return result;
     }
 }

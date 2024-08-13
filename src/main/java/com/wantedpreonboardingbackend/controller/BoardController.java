@@ -4,10 +4,7 @@ import com.wantedpreonboardingbackend.domain.RecruitNotice;
 import com.wantedpreonboardingbackend.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +15,7 @@ import java.util.Map;
 public class BoardController {
     final BoardService boardService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Object> addRecruit(RecruitNotice recruitNotice) {
         if (boardService.validate(recruitNotice)) {
             boardService.addRecruit(recruitNotice);
@@ -27,8 +24,17 @@ public class BoardController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public List<Map<String, Object>> getList() {
         return boardService.getList();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity getRecruitById(@PathVariable Integer id) {
+        Map<String, Object> map = boardService.getBoard(id);
+        if (map == null || map.get("recruit") == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(map);
     }
 }
