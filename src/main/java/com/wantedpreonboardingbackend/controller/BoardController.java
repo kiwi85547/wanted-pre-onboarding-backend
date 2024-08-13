@@ -37,4 +37,13 @@ public class BoardController {
         }
         return ResponseEntity.ok().body(map);
     }
+
+    @PostMapping("{id}")
+    public ResponseEntity modifyRecruit(@PathVariable Integer id, RecruitNotice recruitNotice) {
+        if (boardService.validate(recruitNotice)) {
+            Map<String, Object> result = boardService.modifyRecruit(id, recruitNotice);
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }

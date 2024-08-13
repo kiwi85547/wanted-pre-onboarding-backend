@@ -35,10 +35,7 @@ public class BoardService {
         }
 
         // Integer 필드에 대한 체크
-        if (recruitNotice.getSalary() == null) {
-            return false;
-        }
-        if (recruitNotice.getCompanyId() == null) {
+        if (recruitNotice.getSalary() == null || recruitNotice.getCompanyId() == null) {
             return false;
         }
 
@@ -59,6 +56,15 @@ public class BoardService {
             return null;
         }
         result.put("recruit", boardMapper.selectRecruitById(id));
+        return result;
+    }
+
+    public Map<String, Object> modifyRecruit(Integer id, RecruitNotice recruitNotice) {
+        Map<String, Object> result = new HashMap<>();
+        if (id != recruitNotice.getRecruitId()) {
+            return null;
+        }
+        result.put("recruit", boardMapper.updateRecruitById(recruitNotice));
         return result;
     }
 }

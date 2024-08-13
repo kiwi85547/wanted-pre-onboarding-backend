@@ -4,6 +4,7 @@ import com.wantedpreonboardingbackend.domain.RecruitNotice;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -42,4 +43,18 @@ public interface BoardMapper {
             SELECT *, company.company_name FROM recruit_notice notice LEFT JOIN company ON notice.company_id = company.company_id WHERE notice.recruit_id = #{recruitId}
             """)
     Map<String, Object> selectRecruitById(Integer recruitId);
+
+    @Update("""
+            UPDATE recruit_notice 
+            SET position = #{position}, 
+                salary = #{salary},
+                content = #{content}, 
+                tech_stack = #{techStack}, 
+                country = #{country}, 
+                region = #{region}, 
+                created_at = NOW()
+            WHERE recruit_id = #{recruitId}
+            """)
+    int updateRecruitById(RecruitNotice recruitNotice);
+
 }
