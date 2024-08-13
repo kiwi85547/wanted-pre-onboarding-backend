@@ -16,7 +16,8 @@ public class BoardController {
 
     @PostMapping("/")
     public ResponseEntity<Object> addRecruit(RecruitNotice recruitNotice) {
-        if (boardService.addRecruit(recruitNotice)) {
+        if (boardService.validate(recruitNotice)) {
+            boardService.addRecruit(recruitNotice);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();

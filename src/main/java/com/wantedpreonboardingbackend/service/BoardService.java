@@ -13,11 +13,33 @@ public class BoardService {
 
     final BoardMapper boardMapper;
 
-    public Boolean addRecruit(RecruitNotice recruitNotice) {
-        if (recruitNotice != null) {
-            boardMapper.insertRecruit(recruitNotice);
-            return true;
+    public boolean validate(RecruitNotice recruitNotice) {
+        // 문자열 필드에 대한 체크
+        String[] fieldsToCheck = {
+                recruitNotice.getPosition(),
+                recruitNotice.getContent(),
+                recruitNotice.getTechStack(),
+                recruitNotice.getCountry(),
+                recruitNotice.getRegion()
+        };
+
+        // null이거나 blank인지 체크
+        for (String field : fieldsToCheck) {
+            if (field == null || field.isBlank()) {
+                return false;
+            }
         }
-        return false;
+
+        // Integer 필드에 대한 체크
+        if (recruitNotice.getSalary() == null) {
+            return false;
+        }
+
+        return true;
     }
+
+    public void addRecruit(RecruitNotice recruitNotice) {
+        boardMapper.insertRecruit(recruitNotice);
+    }
+
 }
