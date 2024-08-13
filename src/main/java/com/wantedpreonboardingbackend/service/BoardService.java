@@ -61,9 +61,6 @@ public class BoardService {
 
     public Map<String, Object> modifyRecruit(Integer id, RecruitNotice recruitNotice) {
         Map<String, Object> result = new HashMap<>();
-        if (id != recruitNotice.getRecruitId()) {
-            return null;
-        }
         result.put("recruit", boardMapper.updateRecruitById(recruitNotice));
         return result;
     }
